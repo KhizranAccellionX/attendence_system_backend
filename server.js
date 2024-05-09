@@ -7,6 +7,7 @@ const express_1 = __importDefault(require("express"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const cors_1 = __importDefault(require("cors"));
+const body_parser_1 = __importDefault(require("body-parser"));
 const userRoutes_1 = __importDefault(require("./routes/userRoutes"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
@@ -16,7 +17,7 @@ mongoose_1.default
     .connect(process.env.MONGO_URL)
     .then(() => console.log("MongoDB connected"))
     .catch((err) => console.error("MongoDB connection error:", err));
-app.use(express_1.default.json());
+app.use(body_parser_1.default.json());
 app.use("/api", userRoutes_1.default);
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
