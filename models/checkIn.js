@@ -28,6 +28,7 @@ const attendanceRecordSchema = new mongoose_1.Schema({
     user: { type: mongoose_1.Schema.Types.ObjectId, ref: "User", required: true },
     time_in: { type: Date, required: true },
     time_out: { type: Date },
+    working_hours: { type: Number },
     date: { type: Date, required: true },
     status: {
         type: String,
