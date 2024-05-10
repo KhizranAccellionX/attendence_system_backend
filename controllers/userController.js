@@ -57,7 +57,7 @@ const authUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         if (!secret) {
             throw new Error("JWT_SECRET environment variable is not defined");
         }
-        const token = jsonwebtoken_1.default.sign({ userId: user._id }, secret, { expiresIn: "1h" });
+        const token = jsonwebtoken_1.default.sign({ userId: user._id }, secret, { expiresIn: "5h" });
         res.json({ message: "Login successful", token });
     }
     catch (error) {
