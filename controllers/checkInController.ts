@@ -61,6 +61,7 @@ import AttendanceRecordSchema from "../models/checkIn";
 
 export const checkIn = async (req: Request, res: Response): Promise<void> => {
   const checkInTime = new Date();
+  console.log(checkInTime);
   try {
     const userId = req.user._id;
     console.log(userId);
@@ -70,7 +71,7 @@ export const checkIn = async (req: Request, res: Response): Promise<void> => {
     });
 
     if (existingCheckInRecord) {
-      res.status(400).json({
+      res.status(201).json({
         success: false,
         checkedIn: false,
         message: "You have already checked in today",
@@ -82,7 +83,7 @@ export const checkIn = async (req: Request, res: Response): Promise<void> => {
       user: userId,
       time_in: checkInTime,
       date: checkInTime,
-      status: "Present", 
+      status: "Present",
     });
     await attendanceRecord.save();
 

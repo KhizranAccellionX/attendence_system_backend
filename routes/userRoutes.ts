@@ -5,6 +5,7 @@ import { getUserDetails } from "../controllers/userDetails";
 import { checkOut } from "../controllers/checkOutController";
 import { getAllUsers } from "../controllers/fetchUsersController";
 import { authenticateUser } from "../controllers/middleware/AuthMiddelware";
+import { getUserAttendance } from "../controllers/userAttendence";
 
 const router: Router = express.Router();
 
@@ -20,5 +21,7 @@ router.post("/attendance/check-out", checkOut);
 router.get("/userDetails", getUserDetails);
 
 router.get("/fetchusers", getAllUsers);
+
+router.get("/userattendance", getUserAttendance);
 
 export default router;

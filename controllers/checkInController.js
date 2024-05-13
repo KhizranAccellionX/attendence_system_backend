@@ -19,6 +19,7 @@ exports.checkIn = void 0;
 const checkIn_1 = __importDefault(require("../models/checkIn"));
 const checkIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const checkInTime = new Date();
+    console.log(checkInTime);
     try {
         const userId = req.user._id;
         console.log(userId);
@@ -27,7 +28,7 @@ const checkIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             date: { $gte: new Date().setHours(0, 0, 0, 0) },
         });
         if (existingCheckInRecord) {
-            res.status(400).json({
+            res.status(201).json({
                 success: false,
                 checkedIn: false,
                 message: "You have already checked in today",
