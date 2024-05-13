@@ -56,18 +56,20 @@
 //   }
 // };
 import { Request, Response } from "express";
-import jwt from "jsonwebtoken";
 import AttendanceRecordSchema from "../models/checkIn";
 
 export const checkIn = async (req: Request, res: Response): Promise<void> => {
   const checkInTime = new Date();
-  console.log(checkInTime);
+  const date = new Date().setUTCHours(0, 0, 0, 0); // Set the date to midnight in UTC timezone
+
+  console.log("todays date", new Date(date));
+  console.log("checkIn time", checkInTime);
   try {
     const userId = req.user._id;
     console.log(userId);
     const existingCheckInRecord = await AttendanceRecordSchema.findOne({
       user: userId,
-      date: { $gte: new Date().setHours(0, 0, 0, 0) },
+      date: date,
     });
 
     if (existingCheckInRecord) {
@@ -82,7 +84,7 @@ export const checkIn = async (req: Request, res: Response): Promise<void> => {
     const attendanceRecord = new AttendanceRecordSchema({
       user: userId,
       time_in: checkInTime,
-      date: checkInTime,
+      date: date,
       status: "Present",
     });
     await attendanceRecord.save();

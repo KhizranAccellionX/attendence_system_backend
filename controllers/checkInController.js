@@ -19,13 +19,15 @@ exports.checkIn = void 0;
 const checkIn_1 = __importDefault(require("../models/checkIn"));
 const checkIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const checkInTime = new Date();
-    console.log(checkInTime);
+    const date = new Date().setUTCHours(0, 0, 0, 0); // Set the date to midnight in UTC timezone
+    console.log("todays date", new Date(date));
+    console.log("checkIn time", checkInTime);
     try {
         const userId = req.user._id;
         console.log(userId);
         const existingCheckInRecord = yield checkIn_1.default.findOne({
             user: userId,
-            date: { $gte: new Date().setHours(0, 0, 0, 0) },
+            date: date,
         });
         if (existingCheckInRecord) {
             res.status(201).json({
@@ -39,7 +41,7 @@ const checkIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const attendanceRecord = new checkIn_1.default({
             user: userId,
             time_in: checkInTime,
-            date: checkInTime,
+            date: date,
             status: "Present",
         });
         yield attendanceRecord.save();
